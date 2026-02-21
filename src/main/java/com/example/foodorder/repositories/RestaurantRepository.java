@@ -38,7 +38,7 @@ public interface RestaurantRepository extends JpaRepository<Restaurant, Long> {
                         "AND (:searchQuery IS NULL OR :searchQuery = '' " +
                         "     OR LOWER(r.restaurantName) LIKE LOWER(CONCAT('%', :searchQuery, '%')) " +
                         "     OR LOWER(m.name) LIKE LOWER(CONCAT('%', :searchQuery, '%'))) " +
-                        "AND c.name IN :cuisines")
+                        "AND LOWER(c.name) IN :cuisines")
         Page<Restaurant> searchRestaurantsWithCuisines(
                         @Param("city") String city,
                         @Param("searchQuery") String searchQuery,
@@ -64,7 +64,7 @@ public interface RestaurantRepository extends JpaRepository<Restaurant, Long> {
                         "     OR LOWER(r.restaurantName) LIKE LOWER(CONCAT('%', :q, '%')) " +
                         "     OR LOWER(r.city) LIKE LOWER(CONCAT('%', :q, '%')) " +
                         "     OR LOWER(m.name) LIKE LOWER(CONCAT('%', :q, '%'))) " +
-                        "AND c.name IN :cuisines")
+                        "AND LOWER(c.name) IN :cuisines")
         Page<Restaurant> unifiedSearchWithCuisines(
                         @Param("q") String q,
                         @Param("cuisines") List<String> cuisines,

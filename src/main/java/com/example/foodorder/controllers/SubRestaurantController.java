@@ -42,7 +42,9 @@ public class SubRestaurantController {
         // Parse cuisines
         List<String> cuisineList = null;
         if (selectedCuisines != null && !selectedCuisines.isEmpty()) {
-            cuisineList = Arrays.asList(selectedCuisines.split(","));
+            cuisineList = Arrays.stream(selectedCuisines.split(","))
+                    .map(String::toLowerCase)
+                    .collect(Collectors.toList());
         }
 
         // Determine sort
@@ -94,7 +96,9 @@ public class SubRestaurantController {
 
         List<String> cuisineList = null;
         if (selectedCuisines != null && !selectedCuisines.isEmpty()) {
-            cuisineList = Arrays.asList(selectedCuisines.split(","));
+            cuisineList = Arrays.stream(selectedCuisines.split(","))
+                    .map(String::toLowerCase)
+                    .collect(Collectors.toList());
         }
 
         Sort sort = switch (sortOption) {
