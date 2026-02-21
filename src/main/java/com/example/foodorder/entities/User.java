@@ -17,10 +17,11 @@ public class User {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @Column(name = "auth_id", nullable = false)
+    // Used for Auth0 / legacy auth (nullable now that we have username/password)
+    @Column(name = "auth_id")
     private String authId;
 
-    @Column(name = "email", nullable = false)
+    @Column(name = "email")
     private String email;
 
     @Column(name = "name")
@@ -35,8 +36,20 @@ public class User {
     @Column(name = "country", length = 100)
     private String country;
 
+    // ---- New columns for username/password auth ----
+    @Column(name = "username", unique = true, length = 100)
+    private String username;
+
+    /** SHA-256 hex hash of the password (hashed on frontend, stored as-is) */
+    @Column(name = "password_hash", length = 64)
+    private String passwordHash;
+
+    /** USER or RESTAURANT_OWNER */
+    @Column(name = "role", length = 30)
+    private String role = "USER";
+    // -----------------------------------------------
+
     @ColumnDefault("current_timestamp()")
     @Column(name = "created_at")
     private Instant createdAt;
-
 }
